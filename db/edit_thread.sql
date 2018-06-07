@@ -1,0 +1,1 @@
+UPDATE "public"."thread" SET "title"=${title},"initialPost"=${initialPost} WHERE "id"=${id} AND "user_id"=${user_id} RETURNING "id", "user_id", "title", "initialPost";

@@ -1,0 +1,33 @@
+@font-face {
+  font-family: BebasNeue;
+  font-weight: bold;
+  src: url("../../assets/BebasNeue\ Bold.otf") format("opentype");
+}
+
+nav {
+  height: 55px;
+  width: 100%;
+  background: black;
+  position: fixed;
+}
+
+.nav-contents {
+  display: flex;
+  color: white;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-family: BebasNeue;
+  font-size: 30px;
+  padding: 0px 50px;  
+}
+
+.account {
+  text-decoration: none;
+  color: white;
+}
+
+.forums {
+  text-decoration: none;
+  color: white;
+}

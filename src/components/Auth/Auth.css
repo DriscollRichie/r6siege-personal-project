@@ -1,0 +1,54 @@
+@font-face {
+  font-family: BebasNeue;
+  font-weight: bold;
+  src: url("../../assets/BebasNeue\ Bold.otf") format("opentype");
+}
+
+.registration-container {
+  height: 400px;
+  width: 300px;
+  background: url('../../assets/r6-siege-v3-bg.jpg');
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in-text {
+  color: white;
+}
+
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: BebasNeue;
+}
+
+@font-face {
+  font-family: BebasNeue;
+  font-weight: bold;
+  src: url("../../assets/BebasNeue\ Bold.otf") format("opentype");
+}
+
+.auth-container {
+  padding-top: 55px;
+  background: url('../../assets/r6-siege-v3-bg.jpg');
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+.account-registration-text {
+  color: white;
+  font-family: BebasNeue;
+  font-size: 80px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+}

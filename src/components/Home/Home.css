@@ -1,0 +1,13 @@
+.home-image-1 {
+  background: url('../../assets/r6-header-operation-parabellum2_322905.jpg');
+  min-height: 600px;
+}
+
+.home-image-2 {
+  background: url('../../assets/r6-siege-home-operators-bg.jpg');
+  min-height: 600px;
+}
+
+.homepage-contents {
+  padding-top: 55px;
+}
