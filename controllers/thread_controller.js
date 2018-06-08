@@ -30,12 +30,12 @@ module.exports = {
     try {
       // console.log('ENDPOINT HIT')
       const db = req.app.get("db");
-      let { initialPost, user_id } = req.body;
+      let { newThreadText, user_id } = req.body;
       let { id } = req.params;
       // console.log('req.body', req.body)
       // console.log('req.params', req.params)
       const [editedThread] = await db.edit_thread({
-        initialPost,
+        newThreadText,
         id,
         user_id
       });
@@ -57,6 +57,21 @@ module.exports = {
       res.status(200).send(thread);
     } catch (err) {
       console.error("getThread method failed in thread_controller.js:", err);
+      res.status(500).send(err);
+    }
+  },
+
+  delete_thread: async (req, res) => {
+    try {
+      const db = req.app.get("db");
+      const { id } = req.params;
+      const { user_id } = req.session.user;
+      console.log(req.session.user)
+
+      await db.delete_one_thread({ thread_id: id, user_id});
+      res.sendStatus(200);
+    } catch (err) {
+      console.error("delete_thread method failed in thread_controller:", err);
       res.status(500).send(err);
     }
   }

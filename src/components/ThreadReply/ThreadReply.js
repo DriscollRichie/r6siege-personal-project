@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 
-export default class PostReply extends Component {
+export default class ThreadReply extends Component {
   render() {
     return(
       <div>
-        <span>I am PostReply</span>
+        <span>I am ThreadReply</span>
       </div>
     )
   }

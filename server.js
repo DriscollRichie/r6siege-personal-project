@@ -45,14 +45,12 @@ app.post("/api/auth/login", userController.login_user);
 app.post("/RainbowSixApi/playerstats", userController.get_r6stats);
 
 app.get("/api/forums/threads", threadController.get_all_threads);
-
 app.post("/api/forums/threads/new_thread", threadController.create_thread);
-app.put('/api/forums/threads/edit_thread/:id', threadController.edit_thread)
-app.get('/api/forums/thread/:id', threadController.get_one_thread)
-
+app.put("/api/forums/threads/edit_thread/:id", threadController.edit_thread);
+app.get("/api/forums/thread/:id", threadController.get_one_thread);
+app.delete('/api/forums/delete_thread/:id', authMiddleware, threadController.delete_thread)
 
 app.post("/api/payment", stripeController.payment);
-
 
 app.listen(SERVER_PORT, () =>
   console.log(`Server is listening on port: ${SERVER_PORT}`)

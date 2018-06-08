@@ -8,86 +8,105 @@ class Thread extends Component {
   constructor() {
     super();
     this.state = {
-      posts: [],
-      initialPost: "",
-      title: "",
-      editMode: false
+      thread: { posts: [] },
+      newThreadText: "",
+      editMode: false,
+      loadedUser: false
     };
-  }
-
-  getInitialPost() {
-    axios
-      .get(`/api/forum/threads/initialPost/${this.props.match.params.id}`)
-      .then(res => {
-        this.setState({ initialPost: res.data.initialPost });
-      });
   }
 
   handleChange = (key, prop) => {
     this.setState({ [key]: prop });
   };
 
-  getTitle() {
-    axios
-      .get(`/api/forum/title_by_id/${this.props.match.params.id}`)
-      .then(res => {
-        this.setState({ title: res.data.title });
-      });
-  }
-
   editPost = () => {
     this.setState({ editMode: true });
   };
 
-  savePost = () => {
-    let user_id = this.props.user.id;
-    let { id } = this.props.match.params;
-    let { initialPost } = this.state;
-    axios
-      .put(`/api/forums/threads/edit_thread/${id}`, { initialPost, user_id })
-      .then(res => {
-        console.log(res.data);
-        this.setState({ editMode: false });
-      });
+  cancelPost = () => {
+    this.setState({ editMode: false });
   };
 
-  componentDidMount() {
-    // this.getInitialPost();
-    // this.getTitle();
-    
-    axios.get(`/api/forums/thread/${this.props.match.params.id}`).then(res => {
-      console.log('res.data', res.data)
-      this.setState({ posts: res.data });
-    });
-    if (!this.props.user) {
-      axios.get("/api/auth/check").then(res => {
-        this.props.updateUser(res.data.id, res.data.username);
-      });
+  deletePost = async () => {
+    try {
+      let user_id = this.props.user.id;
+      let { id } = this.props.match.params;
+      await axios.delete(`/api/forums/delete_thread/${id}`, { user_id });
+      this.props.history.push("/forums");
+    } catch (err) {
+      console.error("deletePost method failed in Thread.js:", err);
     }
-  }
+  };
+
+  savePost = async () => {
+    try {
+      let user_id = this.props.user.id;
+      let { id } = this.props.match.params;
+      let { newThreadText } = this.state;
+      const { data: thread } = await axios.put(
+        `/api/forums/threads/edit_thread/${id}`,
+        {
+          newThreadText,
+          user_id
+        }
+      );
+
+      this.setState({
+        editMode: false,
+        thread: Object.assign({}, this.state.thread, {
+          thread_text: thread.initialPost
+        }),
+        newThreadText: ""
+      });
+    } catch (err) {
+      console.error("savePost method failed in Thread.js:", err);
+    }
+  };
+
+  componentDidMount = async () => {
+    try {
+      let { id } = this.props.match.params;
+      const { data: thread } = await axios.get(`/api/forums/thread/${id}`);
+      this.setState({ thread });
+      if (!this.props.user) {
+        const { data } = await axios.get("/api/auth/check");
+        this.props.updateUser(data.id, data.username);
+      }
+      this.setState({ loadedUser: true });
+    } catch (err) {
+      console.error("componentDidMount failed in Thread.js:", err);
+    }
+  };
   render() {
-    let posts = this.state.posts.map(elem => {
+    let posts = this.state.thread.posts.map(elem => {
       return (
-        <div className="post-container" key={elem.id}>
-          {elem.content}
+        <div className="post-container" key={elem.post_id}>
+          {elem.post_text}
         </div>
       );
     });
     return (
       <div className="thread-container">
-        {this.state.editMode ? (
+        {this.state.editMode &&
+        this.state.thread.thread_user_id === this.props.user.id ? (
           <div>
             <input
-              onChange={e => this.handleChange("initialPost", e.target.value)}
+              onChange={e => this.handleChange("newThreadText", e.target.value)}
             />
             <button onClick={this.savePost}>Save</button>
+            <button onClick={this.cancelPost}>Cancel</button>
           </div>
         ) : (
-          this.state.initialPost
+          this.state.thread.thread_text
         )}
-        {this.props.user ? (
-          <button onClick={this.editPost}>Edit Post</button>
+        {this.state.loadedUser &&
+        this.state.thread.thread_user_id === this.props.user.id ? (
+          <div>
+            <button onClick={this.editPost}>Edit Post</button>
+            <button onClick={this.deletePost}>Delete Post</button>
+          </div>
         ) : null}
+
         {posts}
       </div>
     );
