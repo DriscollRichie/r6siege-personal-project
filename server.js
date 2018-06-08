@@ -7,7 +7,7 @@ const chalk = require("chalk");
 
 // Controllers
 const threadController = require("./controllers/thread_controller");
-const postController = require("./controllers/post_controller");
+// const postController = require("./controllers/post_controller");
 const userController = require("./controllers/user_controller");
 const stripeController = require("./controllers/stripe_controller");
 
@@ -44,17 +44,12 @@ app.post("/api/auth/register", userController.register_user);
 app.post("/api/auth/login", userController.login_user);
 app.post("/RainbowSixApi/playerstats", userController.get_r6stats);
 
-app.get("/api/forum/threads", threadController.get_threads);
-app.get(
-  "/api/forum/threads/initialPost/:id",
-  threadController.get_initial_post
-);
-app.get('/api/forum/title_by_id/:id', threadController.getTitleById)
+app.get("/api/forums/threads", threadController.get_all_threads);
+
 app.post("/api/forums/threads/new_thread", threadController.create_thread);
-app.put('/api/forums/threads/edit_thread', threadController.edit_thread)
+app.put('/api/forums/threads/edit_thread/:id', threadController.edit_thread)
+app.get('/api/forums/thread/:id', threadController.get_one_thread)
 
-
-app.get("/api/forum/thread/:id", postController.get_posts);
 
 app.post("/api/payment", stripeController.payment);
 

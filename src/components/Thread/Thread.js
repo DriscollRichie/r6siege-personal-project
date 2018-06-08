@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Thread.css";
+import { connect } from "react-redux";
+import { updateUser } from "../../reducers/user-reducer";
 
-export default class Thread extends Component {
+class Thread extends Component {
   constructor() {
     super();
     this.state = {
@@ -21,6 +23,10 @@ export default class Thread extends Component {
       });
   }
 
+  handleChange = (key, prop) => {
+    this.setState({ [key]: prop });
+  };
+
   getTitle() {
     axios
       .get(`/api/forum/title_by_id/${this.props.match.params.id}`)
@@ -30,17 +36,35 @@ export default class Thread extends Component {
   }
 
   editPost = () => {
-    this.setState({editMode: true})
-  }
+    this.setState({ editMode: true });
+  };
+
+  savePost = () => {
+    let user_id = this.props.user.id;
+    let { id } = this.props.match.params;
+    let { initialPost } = this.state;
+    axios
+      .put(`/api/forums/threads/edit_thread/${id}`, { initialPost, user_id })
+      .then(res => {
+        console.log(res.data);
+        this.setState({ editMode: false });
+      });
+  };
 
   componentDidMount() {
-    this.getInitialPost();
-    this.getTitle();
-    axios.get(`/api/forum/thread/${this.props.match.params.id}`).then(res => {
+    // this.getInitialPost();
+    // this.getTitle();
+    
+    axios.get(`/api/forums/thread/${this.props.match.params.id}`).then(res => {
+      console.log('res.data', res.data)
       this.setState({ posts: res.data });
     });
+    if (!this.props.user) {
+      axios.get("/api/auth/check").then(res => {
+        this.props.updateUser(res.data.id, res.data.username);
+      });
+    }
   }
-
   render() {
     let posts = this.state.posts.map(elem => {
       return (
@@ -51,15 +75,26 @@ export default class Thread extends Component {
     });
     return (
       <div className="thread-container">
-      {
-        this.state.editMode ? (
-        <input />
+        {this.state.editMode ? (
+          <div>
+            <input
+              onChange={e => this.handleChange("initialPost", e.target.value)}
+            />
+            <button onClick={this.savePost}>Save</button>
+          </div>
         ) : (
-        this.state.initialPost
+          this.state.initialPost
         )}
-        <button onClick={this.editPost}>Edit Post</button>
+        {this.props.user ? (
+          <button onClick={this.editPost}>Edit Post</button>
+        ) : null}
         {posts}
       </div>
     );
   }
 }
+
+export default connect(
+  state => state,
+  { updateUser }
+)(Thread);

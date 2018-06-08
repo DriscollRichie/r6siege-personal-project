@@ -1,25 +1,13 @@
 module.exports = {
-  get_threads: async (req, res) => {
+  get_all_threads: async (req, res) => {
     try {
       const db = req.app.get("db");
 
-      const threads = await db.get_threads();
+      const threads = await db.get_all_threads();
 
       res.status(200).send(threads);
     } catch (err) {
       console.error("get_threads failed in thread_controller.js:", err);
-    }
-  },
-
-  get_initial_post: async (req, res) => {
-    try {
-      const db = req.app.get("db");
-      const { id } = req.params;
-      const [initial_post] = await db.get_initial_post({ id });
-
-      res.status(200).send(initial_post);
-    } catch (err) {
-      console.error("get_intial_post failed in thread_controller.js:", err);
     }
   },
 
@@ -38,30 +26,38 @@ module.exports = {
     }
   },
 
-  getTitleById: async (req, res) => {
-    try {
-      const db = req.app.get("db");
-      let {id} = req.params
-      const [title] = await db.get_title_by_id({id});
-      res.status(200).send(title)
-    } catch (err) {
-      console.error("getThreadById method failed in thread_controller:", err);
-    }
-  },
-
   edit_thread: async (req, res) => {
     try {
+      // console.log('ENDPOINT HIT')
       const db = req.app.get("db");
-      let { title, initialPost, id, user_id } = req.body;
-      const [editedPost] = await db.edit_thread({
-        title,
+      let { initialPost, user_id } = req.body;
+      let { id } = req.params;
+      // console.log('req.body', req.body)
+      // console.log('req.params', req.params)
+      const [editedThread] = await db.edit_thread({
         initialPost,
         id,
         user_id
       });
-      res.status(200).send(editedPost);
+
+      console.log("editedThread", editedThread);
+
+      res.status(200).send(editedThread);
     } catch (err) {
-      console.error("edit_thread method failed in post_controller.js:", err);
+      console.error("edit_thread method failed in thread_controller.js:", err);
+    }
+  },
+  get_one_thread: async (req, res) => {
+    try {
+      const db = req.app.get("db");
+      let { id } = req.params;
+      const [thread] = await db.get_one_thread({ thread_id: id });
+      const posts = await db.get_posts({ post_thread_id: id });
+      thread.posts = posts;
+      res.status(200).send(thread);
+    } catch (err) {
+      console.error("getThread method failed in thread_controller.js:", err);
+      res.status(500).send(err);
     }
   }
 };

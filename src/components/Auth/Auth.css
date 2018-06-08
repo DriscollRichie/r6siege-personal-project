@@ -16,8 +16,8 @@
   color: white;
 }
 
-button {
-  background-color: #4CAF50; /* Green */
+/* button {
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -26,7 +26,7 @@ button {
   display: inline-block;
   font-size: 16px;
   font-family: BebasNeue;
-}
+} */
 
 @font-face {
   font-family: BebasNeue;

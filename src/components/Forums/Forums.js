@@ -13,7 +13,7 @@ class Forums extends Component {
   }
 
   componentDidMount() {
-    axios.get("/api/forum/threads").then(res => {
+    axios.get("/api/forums/threads").then(res => {
       this.setState({ threads: res.data });
     });
   }
