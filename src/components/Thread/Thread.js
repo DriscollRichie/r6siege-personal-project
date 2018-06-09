@@ -3,6 +3,8 @@ import axios from "axios";
 import "./Thread.css";
 import { connect } from "react-redux";
 import { updateUser } from "../../reducers/user-reducer";
+import { Link } from "react-router-dom";
+import Post from "../Post/Post";
 
 class Thread extends Component {
   constructor() {
@@ -10,7 +12,7 @@ class Thread extends Component {
     this.state = {
       thread: { posts: [] },
       newThreadText: "",
-      editMode: false,
+      editThreadMode: false,
       loadedUser: false
     };
   }
@@ -20,11 +22,20 @@ class Thread extends Component {
   };
 
   editPost = () => {
-    this.setState({ editMode: true });
+    this.setState({ editThreadMode: true });
   };
 
   cancelPost = () => {
-    this.setState({ editMode: false });
+    this.setState({ editThreadMode: false });
+  };
+
+  updatePostText = (text, index) => {
+    console.log("this.state.thread", this.state.thread);
+    let postsCopy = [...this.state.thread.posts];
+    postsCopy[index].post_text = text;
+    this.setState({
+      thread: Object.assign({}, this.state.thread, { posts: postsCopy })
+    });
   };
 
   deletePost = async () => {
@@ -52,7 +63,7 @@ class Thread extends Component {
       );
 
       this.setState({
-        editMode: false,
+        editThreadMode: false,
         thread: Object.assign({}, this.state.thread, {
           thread_text: thread.initialPost
         }),
@@ -78,16 +89,23 @@ class Thread extends Component {
     }
   };
   render() {
-    let posts = this.state.thread.posts.map(elem => {
+    console.log("map", this.state.thread.posts);
+    let posts = this.state.thread.posts.map((elem, i) => {
       return (
-        <div className="post-container" key={elem.post_id}>
-          {elem.post_text}
-        </div>
+        <Post
+          postData={elem}
+          loadedUser={this.state.loadedUser}
+          currentUser={this.props.user}
+          params={this.props.match.params.id}
+          postIndex={i}
+          updatePostText={this.updatePostText}
+          key={elem.post_id}
+        />
       );
     });
     return (
       <div className="thread-container">
-        {this.state.editMode &&
+        {this.state.editThreadMode &&
         this.state.thread.thread_user_id === this.props.user.id ? (
           <div>
             <input
@@ -106,7 +124,13 @@ class Thread extends Component {
             <button onClick={this.deletePost}>Delete Post</button>
           </div>
         ) : null}
-
+        {this.state.loadedUser ? (
+          <div>
+            <Link to={`/forums/newReply/${this.props.match.params.id}`}>
+              <button onClick={this.replyToPost}>Reply To Post</button>
+            </Link>
+          </div>
+        ) : null}
         {posts}
       </div>
     );

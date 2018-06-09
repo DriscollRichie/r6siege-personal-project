@@ -6,6 +6,7 @@ import Account from "./components/Account/Account";
 import Auth from "./components/Auth/Auth";
 import Thread from "./components/Thread/Thread";
 import newThread from "./components/newThread/newThread";
+import newThreadReply from "./components/newThreadReply/newThreadReply";
 
 export default (
   <Switch>
@@ -15,5 +16,6 @@ export default (
     <Route path="/auth" component={Auth} />
     <Route path="/forums/thread/:id" component={Thread} />
     <Route path="/forums/new/thread" component={newThread} />
+    <Route path="/forums/newReply/:id" component={newThreadReply} />
   </Switch>
 );

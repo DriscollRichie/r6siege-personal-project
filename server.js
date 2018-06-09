@@ -7,7 +7,7 @@ const chalk = require("chalk");
 
 // Controllers
 const threadController = require("./controllers/thread_controller");
-// const postController = require("./controllers/post_controller");
+const postController = require("./controllers/post_controller");
 const userController = require("./controllers/user_controller");
 const stripeController = require("./controllers/stripe_controller");
 
@@ -49,6 +49,9 @@ app.post("/api/forums/threads/new_thread", threadController.create_thread);
 app.put("/api/forums/threads/edit_thread/:id", threadController.edit_thread);
 app.get("/api/forums/thread/:id", threadController.get_one_thread);
 app.delete('/api/forums/delete_thread/:id', authMiddleware, threadController.delete_thread)
+
+app.post('/api/forums/threadReply/:id', authMiddleware, postController.threadReply)
+app.post('/api/forums/postEdit/:id', authMiddleware, postController.editReply)
 
 app.post("/api/payment", stripeController.payment);
 
