@@ -48,10 +48,23 @@ app.get("/api/forums/threads", threadController.get_all_threads);
 app.post("/api/forums/threads/new_thread", threadController.create_thread);
 app.put("/api/forums/threads/edit_thread/:id", threadController.edit_thread);
 app.get("/api/forums/thread/:id", threadController.get_one_thread);
-app.delete('/api/forums/delete_thread/:id', authMiddleware, threadController.delete_thread)
+app.delete(
+  "/api/forums/delete_thread/:id",
+  authMiddleware,
+  threadController.delete_thread
+);
 
-app.post('/api/forums/threadReply/:id', authMiddleware, postController.threadReply)
-app.post('/api/forums/postEdit/:id', authMiddleware, postController.editReply)
+app.post(
+  "/api/forums/threadReply/:id",
+  authMiddleware,
+  postController.threadReply
+);
+app.put("/api/forums/postEdit/:id", authMiddleware, postController.editReply);
+app.delete(
+  "/api/forums/postDelete/:id",
+  authMiddleware,
+  postController.deletePost
+);
 
 app.post("/api/payment", stripeController.payment);
 

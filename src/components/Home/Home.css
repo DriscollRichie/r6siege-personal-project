@@ -1,6 +1,7 @@
 .home-image-1 {
   background: url('../../assets/r6-header-operation-parabellum2_322905.jpg');
   min-height: 600px;
+  display: flex
 }
 
 .home-image-2 {
@@ -10,4 +11,11 @@
 
 .homepage-contents {
   padding-top: 55px;
+}
+
+.text-container {
+  background-color: white;
+  width: 100px;
+  height: 100px;
+  top: 500px
 }

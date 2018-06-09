@@ -38,6 +38,16 @@ class Thread extends Component {
     });
   };
 
+  deletePostReply = (index) => {
+    console.log('this.state.thread.posts', this.state.thread.posts)
+    let postsCopy = [...this.state.thread.posts]
+    postsCopy.splice(index)
+    this.setState({
+      thread: Object.assign({}, this.state.thread, { posts: postsCopy })
+    });
+    
+  }
+
   deletePost = async () => {
     try {
       let user_id = this.props.user.id;
@@ -89,7 +99,6 @@ class Thread extends Component {
     }
   };
   render() {
-    console.log("map", this.state.thread.posts);
     let posts = this.state.thread.posts.map((elem, i) => {
       return (
         <Post
@@ -100,6 +109,7 @@ class Thread extends Component {
           postIndex={i}
           updatePostText={this.updatePostText}
           key={elem.post_id}
+          deletePostReply={this.deletePostReply}
         />
       );
     });
