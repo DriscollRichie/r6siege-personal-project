@@ -1,21 +1,60 @@
+@font-face {
+  font-family: BebasNeue;
+  font-weight: bold;
+  src: url("../../assets/BebasNeue\ Bold.otf") format("opentype");
+}
+
 .home-image-1 {
   background: url('../../assets/r6-header-operation-parabellum2_322905.jpg');
   min-height: 600px;
-  display: flex
+  display: flex;
+  align-items: center
 }
 
 .home-image-2 {
   background: url('../../assets/r6-siege-home-operators-bg.jpg');
   min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end
 }
 
 .homepage-contents {
   padding-top: 55px;
 }
 
-.text-container {
-  background-color: white;
-  width: 100px;
-  height: 100px;
-  top: 500px
+#text-container {
+  background-color: grey;
+  width: 500px;
+  height: 300px;
+  margin-left: 50px;
+  background: rgba(204, 204, 204, 0.3);
+  color: whitesmoke
+}
+
+.box-title-text {
+  padding-top: 15px;
+  font-family: BebasNeue;
+  font-size: 70px;
+}
+
+.box-text {
+  font-family: BebasNeue;
+  font-size: 30px
+}
+
+#text-container-2 {
+  background-color: grey;
+  width: 500px;
+  height: 350px;
+  margin-right: 50px;
+  background: rgba(204, 204, 204, 0.3);
+  color: whitesmoke;
+  overflow: hidden;
+  font-family: BebasNeue;
+  font-size: 20px
+}
+
+.challenge-box {
+  margin-top: 50px;
 }
