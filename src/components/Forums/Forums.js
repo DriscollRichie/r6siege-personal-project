@@ -29,7 +29,7 @@ class Forums extends Component {
   render() {
     let threads = this.state.threads.map(elem => {
       return (
-        <Link to={`/forums/thread/${elem.id}`} key={`thread-${elem.id}`}>
+        <Link className='link'to={`/forums/thread/${elem.id}`} key={`thread-${elem.id}`}>
           <div className="thread-container">{elem.title}</div>
         </Link>
       );

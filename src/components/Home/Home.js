@@ -20,11 +20,11 @@ export default function Home() {
         <div id="text-container-2">
           <h1 className="box-title-text">LATEST NEWS</h1>
           <div className="pro-league-box">
-            <img src={season8ProLeague} width="120px" />
+            <img src={season8ProLeague} width="120px" alt=''/>
             <span>SEASON 8 PRO LEAGUE KICKS OFF ON JUNE 18TH!</span>
           </div>
-          <div className='challenge-box'>
-            <img src={challengePic} width="120px" />
+          <div className="challenge-box">
+            <img src={challengePic} width="120px" alt='' />
             <span>
               NEW WEEKLY IN-GAME CHALLENGES COMING TO RAINBOW SIX SIEGE - MAY
               22ND, 2018

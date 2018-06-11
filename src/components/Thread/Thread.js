@@ -114,7 +114,7 @@ class Thread extends Component {
       );
     });
     return (
-      <div className="thread-container">
+      <div id="thread-container">
         {this.state.editThreadMode &&
         this.state.thread.thread_user_id === this.props.user.id ? (
           <div>

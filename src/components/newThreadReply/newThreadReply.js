@@ -24,7 +24,7 @@ class newThreadReply extends Component {
   render() {
     return (
       <div className="newThreadReply-container">
-        <input onChange={e => this.handleChange("reply", e.target.value)} />
+        <input type='textarea'onChange={e => this.handleChange("reply", e.target.value)} />
         <button onClick={this.replyToPost}>Reply</button>
       </div>
     );

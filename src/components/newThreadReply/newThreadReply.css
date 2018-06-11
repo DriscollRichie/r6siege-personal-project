@@ -1,3 +1,6 @@
 .newThreadReply-container {
   padding-top: 55px;
+  background: url('../../assets//r6-siege-v3-bg.jpg');
+  height: 100vh;
+  color: whitesmoke
 }

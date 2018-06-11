@@ -64,12 +64,9 @@ class Account extends Component {
   render() {
     return (
       <div className="account-container">
-        <div className="sweet-loading">
-          <MoonLoader color={"#123abc"} loading={this.state.loading} />
-        </div>
         {this.props.user ? (
           <div className="account-content">
-            <span>Hello {this.props.user.username || ""}</span>
+            <span className='user-greeting'>Hello {this.props.user.username || ""}</span>
             <button onClick={this.logoutUser}>Logout</button>
           </div>
         ) : null}
@@ -115,29 +112,32 @@ class Account extends Component {
             Get Player Stats
           </button>
         </div>
+        <div className="sweet-loading">
+          <MoonLoader color={"#123abc"} loading={this.state.loading} />
+        </div>
         {this.state.playerFound ? (
           <div className="player-stats-container">
-            <span>Username: {this.state.r6PlayerProfile.username}</span>
-            <span>Platform: {this.state.r6PlayerProfile.platform}</span>
-            <span>
+            <span className='stats'>Username: {this.state.r6PlayerProfile.username}</span>
+            <span className='stats'>Platform: {this.state.r6PlayerProfile.platform}</span>
+            <span className='stats'>
               Player level: {this.state.r6PlayerProfile.stats.progression.level}
             </span>
-            <span>Casual Statistics:</span>
-            <span>Wins: {this.state.r6PlayerProfile.stats.casual.wins}</span>
-            <span>
+            <span className='stats'>Casual Statistics:</span>
+            <span className='stats'>Wins: {this.state.r6PlayerProfile.stats.casual.wins}</span>
+            <span className='stats'>
               Losses: {this.state.r6PlayerProfile.stats.casual.losses}
             </span>
-            <span>
+            <span className='stats'>
               Win/Loss Ratio: {this.state.r6PlayerProfile.stats.casual.wlr}
             </span>
-            <span>Kills: {this.state.r6PlayerProfile.stats.casual.kills}</span>
-            <span>
+            <span className='stats'>Kills: {this.state.r6PlayerProfile.stats.casual.kills}</span>
+            <span className='stats'>
               Deaths: {this.state.r6PlayerProfile.stats.casual.deaths}
             </span>
-            <span>
+            <span className='stats'>
               Kill/Death Ratio: {this.state.r6PlayerProfile.stats.casual.kd}
             </span>
-            <span>
+            <span className='stats'>
               Playtime: {this.state.r6PlayerProfile.stats.casual.playtime}
             </span>
           </div>
