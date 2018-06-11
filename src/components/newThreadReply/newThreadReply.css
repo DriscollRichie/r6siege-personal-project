@@ -4,3 +4,11 @@
   height: 100vh;
   color: whitesmoke
 }
+
+.newThreadReply-input{
+  background: grey;
+  background: rgba(204, 204, 204, 0.3);
+  color: whitesmoke;
+  width: 500px;
+  height: 300px;
+}

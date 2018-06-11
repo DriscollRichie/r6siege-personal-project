@@ -1,15 +1,28 @@
+@font-face {
+  font-family: BebasNeue;
+  font-weight: bold;
+  src: url("../../assets/BebasNeue\ Bold.otf") format("opentype");
+}
+
 .post-container {
   padding-top: 55px;
   background: url('../../assets//r6-siege-v3-bg.jpg');
   height: 100vh;
-  color: whitesmoke
+  color: whitesmoke;
+  font-family: BebasNeue
 }
 
 .title-input {
   width: 500px;
+  background: grey;
+  background: rgba(204, 204, 204, 0.3);
+  color: whitesmoke;
 }
 
 .intial_post-input {
   width: 500px;
-  height: 500px;
+  height: 300px;
+  background: grey;
+  background: rgba(204, 204, 204, 0.3);
+  color: whitesmoke;
 }
