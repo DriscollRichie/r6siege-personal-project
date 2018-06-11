@@ -45,7 +45,7 @@ class newThread extends Component {
           />
         </div>
         <div className="intial_post-container">
-          <input
+          <textarea
             className="intial_post-input"
             onChange={e => this.handleChange("initial_post", e.target.value)}
           />

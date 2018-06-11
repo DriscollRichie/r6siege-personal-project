@@ -10,6 +10,7 @@
   background: url('../../assets/r6-siege-v3-bg.jpg');
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .sign-in-text {

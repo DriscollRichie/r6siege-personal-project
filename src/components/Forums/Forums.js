@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Forums.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 
 class Forums extends Component {
   constructor() {
@@ -27,21 +27,33 @@ class Forums extends Component {
   };
 
   render() {
-    let threads = this.state.threads.map(elem => {
+    let threads = this.state.threads.map((elem, i) => {
       return (
-        <Link className='link'to={`/forums/thread/${elem.id}`} key={`thread-${elem.id}`}>
-          <div className="thread-container">{elem.title}</div>
+        <Link
+          className="link"
+          to={`/forums/thread/${elem.id}`}
+          key={`thread-${elem.id}`}
+        >
+          {i === 0 && <hr />}
+          <div>{elem.title}</div>
+          <hr />
         </Link>
       );
     });
     return (
       <div className="forums-container">
-        <button onClick={this.redirectToNewThread}>Post new thread</button>
-        <span>Threads</span>
-        {threads}
+        <span>
+          <div>Threads</div>
+          <button onClick={this.redirectToNewThread}>Post new thread</button>
+        </span>
+
+        <div className="thread-container">{threads}</div>
       </div>
     );
   }
 }
 
-export default connect(state => state, {})(Forums)
+export default connect(
+  state => state,
+  {}
+)(Forums);

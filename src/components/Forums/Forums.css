@@ -5,7 +5,7 @@
 }
 
 .forums-container {
-  padding-top: 55px;
+  padding-top: 80px;
   font-family: BebasNeue;
   background: url('../../assets/thermite-ash-main-bg.jpg');
   height: 100vh;
@@ -18,3 +18,11 @@
   color: whitesmoke;
   text-decoration: none;
 }
+
+.thread-container{
+  margin-top: 10px;
+  background: grey;
+  background: rgba(204, 204, 204, 0.3);
+}
+
+

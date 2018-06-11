@@ -43,7 +43,8 @@ export default class Post extends Component {
   render() {
     let { postData, loadedUser, currentUser } = this.props;
     return (
-      <div className="post-container">
+      <div>
+        <hr/>
         <span>{postData.post_text}</span>
         {loadedUser && postData.post_user_id === currentUser.id ? (
           <div>
